@@ -1,74 +1,76 @@
-Here is a simple currency converter using HTML, CSS and JavaScript. This converter only performs conversion between US Dollars, Euros and British Pounds. You can add more currencies using the same logic.
+Sure, I can provide you simple example of how you can create a basic currency converter using HTML, CSS, and JavaScript. Due to the limitations of text-only response, I only provide the static data. For accurate conversion, you'll need real-time currency exchange data, which you can fetch from various APIs.
 
-Here's a sample implementation:
+Here's a simple version:
 
 HTML:
-
 ```html
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="style.css">
+    <title>Simple Currency Converter</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<div class="container">
-  <h2>Currency Converter</h2>
-
-  <input id="inputVal" type="number" placeholder="Enter amount in USD..">
-  
-  <select id="initialCurrency">
-     <option value="USD" selected="selected">USD</option>
-     <option value="EUR">EUR</option>
-     <option value="GBP">GBP</option>
-  </select>
-	
-<input id="outputVal" type="number" disabled>
-
-<select id="finalCurrency">
-    <option value="USD">USD</option>
-    <option value="EUR">EUR</option>
-    <option value="GBP" selected="selected">GBP</option>
-</select>
-
-<button onclick="convertCurrency()">Convert</button>
-</div>
-<script src="converter.js"></script>
+    <div class="converter-wrapper">
+        <input id="inputCurrency" type="number" placeholder="Enter Amount..">
+        <select id="baseCurrency">
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <!--add more currencies as needed-->
+        </select>
+        <select id="targetCurrency">
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <!--add more currencies as needed-->
+        </select>
+        <button onclick="convert()">Convert</button>
+        <p id="output"></p>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
 ```
 
 CSS (style.css):
-
 ```css
-body{
+body {
     font-family: Arial, sans-serif;
 }
-.container{
-    margin-top:100px;
-    text-align:center;
+
+.converter-wrapper {
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0,0,0,.1);
 }
-button{
-    margin-top:20px;
+
+input, select, button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
 }
 ```
 
-JavaScript (converter.js):
-
+JavaScript (script.js):
 ```javascript
-var conversion_rates = {'USD_EUR': 0.84, 'USD_GBP': 0.76, 'EUR_USD': 1.19, 'EUR_GBP': 0.9, 'GBP_USD': 1.32, 'GBP_EUR': 1.11 };
+function convert(){
+    var inputCurrency = document.getElementById("inputCurrency").value;
+    var baseCurrency = document.getElementById("baseCurrency").value;
+    var targetCurrency = document.getElementById("targetCurrency").value;
 
-function convertCurrency() {
-    var inputVal = document.getElementById('inputVal').value;
-    var initialCurrency = document.getElementById('initialCurrency').value;
-    var finalCurrency = document.getElementById('finalCurrency').value;
-    var outputVal = document.getElementById('outputVal');
+    // static conversion rates
+    var rates = {
+        "USD": { "USD": 1, "EUR": 0.85 },
+        "EUR": { "USD": 1.18, "EUR": 1 },
+    };
 
-    var key = initialCurrency + '_' + finalCurrency;
-    
-    outputVal.value = (inputVal * conversion_rates[key]).toFixed(2);
-}
+    document.getElementById("output").innerHTML = inputCurrency * rates[baseCurrency][targetCurrency] + " " + targetCurrency;
+};
 ```
 
-Here, we have hardcoded the exchange rates into a `conversion_rates` variable. In a real-world application, we would probably fetch this information from some API that provides real-time rates. 
+Make sure to replace the static exchange rates with dynamic ones from a real API for accurate conversions. For a real-world application you might also want to handle cases where the input isn't a number, or is a negative number. 
 
-When the "Convert" button is clicked, we find the appropriate conversion rate from the `conversion_rates` variable and multiply the input value by this rate to get the converted value.
+Save HTML code in an HTML file, JavaScript code in a `script.js` file and CSS code in a `style.css` file. Make sure that all these files are saved in the same directory. 
+
+Again, this is a very simplified version of a currency converter. There's a lot more you can do to improve this, like adding more currencies, using an API to get live exchange rates, adding better error handling etc.
