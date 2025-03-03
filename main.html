@@ -3,38 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Currency Converter</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; }
-        .converter-container { max-width: 300px; margin: 50px auto; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,.1); }
-        input, select, button { width: 100%; padding: 10px; margin-top: 10px; }
-        button { background: #007bff; color: white; border: none; cursor: pointer; }
         button:hover { background: #0056b3; }
     </style>
 </head>
 <body>
-    <div class="converter-container">
-        <input id="amount" type="number" placeholder="Enter amount..." min="0">
-        <select id="fromCurrency">
-            <option value="USD">USD</option>
-            <option value="EUR">EUR</option>
-        </select>
-        <select id="toCurrency">
-            <option value="USD">USD</option>
-            <option value="EUR">EUR</option>
-        </select>
-        <button onclick="convert()">Convert</button>
-        <p id="result"></p>
+    <div>
     </div>
     <script>
-        function convert() {
-            let amount = parseFloat(document.getElementById("amount").value),
-                from = document.getElementById("fromCurrency").value,
-                to = document.getElementById("toCurrency").value;
-            if (isNaN(amount) || amount <= 0) return document.getElementById("result").innerText = "Enter a valid amount";
-            let rates = { "USD": { "USD": 1, "EUR": 0.85 }, "EUR": { "USD": 1.18, "EUR": 1 } };
-            document.getElementById("result").innerText = (amount * rates[from][to]).toFixed(2) + " " + to;
-        }
     </script>
 </body>
 </html>
