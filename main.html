@@ -1,0 +1,64 @@
+Sure, below is a simple example of a currency converter. This script uses Fetch API to get conversion rates from a API. It only includes USD and EUR for simplicity, but you can expand it to include other currencies.
+
+HTML:
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Currency Converter</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <h2>Currency Converter</h2>
+    <input id="inputValue" type="number" placeholder="Enter USD to convert">
+    <button id="btnConvert" type="button">Convert</button>
+    <p id="outputValue"></p>
+<script src="script.js"></script>
+</body>
+</html>
+```
+
+CSS (`style.css`):
+```css
+body {
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+h2 {
+    text-align: center;
+}
+
+input, button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 1em;
+}
+```
+
+JavaScript (`script.js`):
+```js
+document.getElementById('btnConvert').addEventListener('click', function() {
+    let usd = document.getElementById('inputValue').value;
+    let url = `https://api.exchangerate-api.com/v4/latest/USD`;
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            let rate = data.rates.EUR;
+            let eur = usd * rate;
+            document.getElementById('outputValue').innerHTML = `${usd} USD is equivalent to ${eur.toFixed(2)} EUR`;
+        })
+        .catch(e => {
+            console.log("Oops, something went wrong " + e.message);
+        });
+});
+```
+
+In this script, `fetch` is used to get the latest exchange rate from USD to EUR. This value is then used to convert the input USD value to EUR.
+
+Please note, the exchange rate API used is just an example and not recommended for production environment as it could have rate limits for requests and the API responses can change.
+
+Also remember to include error handling in your actual implementations. Error checking and validating user input is extremely important in every program you write.
