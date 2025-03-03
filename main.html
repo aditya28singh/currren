@@ -1,16 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        button:hover { background: #0056b3; }
-    </style>
-</head>
-<body>
-    <div>
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent } from "@/components/ui/card";
+import { Trash, CheckCircle } from "lucide-react";
+
+export default function TodoList() {
+  const [tasks, setTasks] = useState([]);
+  const [task, setTask] = useState("");
+
+  const addTask = () => {
+    if (task.trim()) {
+      setTasks([...tasks, { text: task, completed: false }]);
+      setTask("");
+    }
+  };
+
+  const toggleComplete = (index) => {
+    const newTasks = [...tasks];
+    newTasks[index].completed = !newTasks[index].completed;
+    setTasks(newTasks);
+  };
+
+  const deleteTask = (index) => {
+    const newTasks = tasks.filter((_, i) => i !== index);
+    setTasks(newTasks);
+  };
+
+  return (
+    <div className="max-w-md mx-auto mt-10 p-4 bg-white shadow-lg rounded-lg">
+      <h1 className="text-xl font-bold mb-4 text-center">To-Do List</h1>
+      <div className="flex gap-2 mb-4">
+        <Input
+          value={task}
+          onChange={(e) => setTask(e.target.value)}
+          placeholder="Add a new task"
+        />
+        <Button onClick={addTask}>Add</Button>
+      </div>
+      <div>
+        {tasks.map((t, index) => (
+          <Card key={index} className="mb-2 p-2 flex items-center justify-between">
+            <CardContent className="flex items-center gap-2 w-full">
+              <button onClick={() => toggleComplete(index)}>
+                <CheckCircle
+                  className={
+                    t.completed ? "text-green-500" : "text-gray-400"
+                  }
+                />
+              </button>
+              <span className={t.completed ? "line-through text-gray-500" : ""}>
+                {t.text}
+              </span>
+            </CardContent>
+            <Button variant="ghost" onClick={() => deleteTask(index)}>
+              <Trash className="text-red-500" />
+            </Button>
+          </Card>
+        ))}
+      </div>
     </div>
-    <script>
-    </script>
-</body>
-</html>
+  );
+}
