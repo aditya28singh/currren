@@ -1,64 +1,74 @@
-Sure, below is a simple example of a currency converter. This script uses Fetch API to get conversion rates from a API. It only includes USD and EUR for simplicity, but you can expand it to include other currencies.
+Here is a simple currency converter using HTML, CSS and JavaScript. This converter only performs conversion between US Dollars, Euros and British Pounds. You can add more currencies using the same logic.
+
+Here's a sample implementation:
 
 HTML:
+
 ```html
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Simple Currency Converter</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <h2>Currency Converter</h2>
-    <input id="inputValue" type="number" placeholder="Enter USD to convert">
-    <button id="btnConvert" type="button">Convert</button>
-    <p id="outputValue"></p>
-<script src="script.js"></script>
+<div class="container">
+  <h2>Currency Converter</h2>
+
+  <input id="inputVal" type="number" placeholder="Enter amount in USD..">
+  
+  <select id="initialCurrency">
+     <option value="USD" selected="selected">USD</option>
+     <option value="EUR">EUR</option>
+     <option value="GBP">GBP</option>
+  </select>
+	
+<input id="outputVal" type="number" disabled>
+
+<select id="finalCurrency">
+    <option value="USD">USD</option>
+    <option value="EUR">EUR</option>
+    <option value="GBP" selected="selected">GBP</option>
+</select>
+
+<button onclick="convertCurrency()">Convert</button>
+</div>
+<script src="converter.js"></script>
 </body>
 </html>
 ```
 
-CSS (`style.css`):
+CSS (style.css):
+
 ```css
-body {
+body{
     font-family: Arial, sans-serif;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 10px;
 }
-
-h2 {
-    text-align: center;
+.container{
+    margin-top:100px;
+    text-align:center;
 }
-
-input, button {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    font-size: 1em;
+button{
+    margin-top:20px;
 }
 ```
 
-JavaScript (`script.js`):
-```js
-document.getElementById('btnConvert').addEventListener('click', function() {
-    let usd = document.getElementById('inputValue').value;
-    let url = `https://api.exchangerate-api.com/v4/latest/USD`;
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            let rate = data.rates.EUR;
-            let eur = usd * rate;
-            document.getElementById('outputValue').innerHTML = `${usd} USD is equivalent to ${eur.toFixed(2)} EUR`;
-        })
-        .catch(e => {
-            console.log("Oops, something went wrong " + e.message);
-        });
-});
+JavaScript (converter.js):
+
+```javascript
+var conversion_rates = {'USD_EUR': 0.84, 'USD_GBP': 0.76, 'EUR_USD': 1.19, 'EUR_GBP': 0.9, 'GBP_USD': 1.32, 'GBP_EUR': 1.11 };
+
+function convertCurrency() {
+    var inputVal = document.getElementById('inputVal').value;
+    var initialCurrency = document.getElementById('initialCurrency').value;
+    var finalCurrency = document.getElementById('finalCurrency').value;
+    var outputVal = document.getElementById('outputVal');
+
+    var key = initialCurrency + '_' + finalCurrency;
+    
+    outputVal.value = (inputVal * conversion_rates[key]).toFixed(2);
+}
 ```
 
-In this script, `fetch` is used to get the latest exchange rate from USD to EUR. This value is then used to convert the input USD value to EUR.
+Here, we have hardcoded the exchange rates into a `conversion_rates` variable. In a real-world application, we would probably fetch this information from some API that provides real-time rates. 
 
-Please note, the exchange rate API used is just an example and not recommended for production environment as it could have rate limits for requests and the API responses can change.
-
-Also remember to include error handling in your actual implementations. Error checking and validating user input is extremely important in every program you write.
+When the "Convert" button is clicked, we find the appropriate conversion rate from the `conversion_rates` variable and multiply the input value by this rate to get the converted value.
