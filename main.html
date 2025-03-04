@@ -1,27 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Simple Currency Converter</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Currency Exchange</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS -->
 </head>
 <body>
-    <div class="converter-wrapper">
-        <input id="inputCurrency" type="number" placeholder="Enter Amount..">
-        <select id="baseCurrency">
-            <option value="USD">USD</option>
-            <option value="EUR">EUR</option>
-            <!--add more currencies as needed-->
+
+    <div class="exchange-box">
+        <h2>Live Currency Exchange</h2>
+
+        <input type="number" id="moneyInput" placeholder="Enter amount" min="0">
+        
+        <select id="initialCurrency">
+            <!-- Currencies will be loaded via JavaScript -->
         </select>
-        <select id="targetCurrency">
-            <option value="USD">USD</option>
-            <option value="EUR">EUR</option>
-            <!--add more currencies as needed-->
+        
+        <select id="convertTo">
+            <!-- Currencies will be loaded via JavaScript -->
         </select>
-        <button onclick="convert()">Convert</button>
-        <p id="output"></p>
+
+        <button onclick="computeExchange()">Get Exchange Rate</button>
+
+        <p id="conversionResult"></p>
     </div>
-    <script src="script.js"></script>
+
+    <script src="app.js"></script> <!-- Link to external JS -->
 </body>
 </html>
-
-
