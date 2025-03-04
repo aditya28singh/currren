@@ -1,17 +1,46 @@
+/* General Page Styling */
 body {
-    font-family: Arial, sans-serif;
-}
-
-.converter-wrapper {
-    max-width: 300px;
-    margin: 0 auto;
-    padding: 20px;
+    font-family: Verdana, sans-serif;
+    background-color: #ececec;
     text-align: center;
-    box-shadow: 0 0 10px rgba(0,0,0,.1);
+    margin: 0;
+    padding: 0;
 }
 
+/* Styling for the Exchange Box */
+.exchange-box {
+    background-color: #ffffff;
+    max-width: 420px;
+    margin: 50px auto;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Inputs and Buttons */
 input, select, button {
-    width: 100%;
-    padding: 10px;
+    width: 95%;
+    padding: 12px;
+    margin-top: 12px;
+    border-radius: 5px;
+    border: 1px solid #cccccc;
+}
+
+button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+/* Result Display */
+#conversionResult {
+    font-size: 18px;
     margin-top: 20px;
+    font-weight: bold;
 }
